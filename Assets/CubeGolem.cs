@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class CubeGolem : MonoBehaviour
 {
-    [SerializeField] static GolemColor selectedColor = new GolemColor { };
+    
     [SerializeField] public GolemColor type = new GolemColor {};
 
     [SerializeField] float MoveDistance = 1;
@@ -13,9 +14,15 @@ public class CubeGolem : MonoBehaviour
     MeshRenderer mesh;
     [SerializeField] Material[] materials;
 
+    GameManager gameManager;
+
     [HideInInspector] public bool objectInFront;
     [HideInInspector] public bool objectInBack;
     [HideInInspector] public bool golemInFront;
+    
+
+    
+    //[SerializeField] Text exRedMoveText, exRedRotateText, exRedPushText, exGreenMoveText, exGreenRotateText, exGreenPushText;
 
     public GameObject frontGolem;
     
@@ -23,14 +30,21 @@ public class CubeGolem : MonoBehaviour
 
     private void Start()
     {
-        selectedColor = GolemColor.Red;
         mesh = gameObject.GetComponent<MeshRenderer>();
-        
+
+        gameManager = FindObjectOfType<GameManager>();
     }
 
 
     private void Update()
-    {
+    { 
+        /*exRedMoveText.text = exRedMove.ToString();
+        exRedRotateText.text = exRedRotate.ToString();
+        exRedPushText.text = exRedPush.ToString();
+        exGreenMoveText.text = exGreenMove.ToString();
+        exGreenRotateText.text = exGreenRotate.ToString();
+        exGreenPushText.text = exGreenPush.ToString();*/
+
         switch (type)
         {
             case GolemColor.Red:
@@ -46,42 +60,163 @@ public class CubeGolem : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && selectedColor.Equals(type) && !objectInFront)
-        {
-            transform.position += transform.right * MoveDistance; 
-        }
+        
 
-        if (Input.GetKeyDown(KeyCode.S) && selectedColor.Equals(type) && !objectInBack)
+        switch(type)
         {
-            transform.position += transform.right * -MoveDistance;
-        }
+            case GolemColor.Red:
+                if (Input.GetKeyDown(KeyCode.W) && gameManager.selectedColor.Equals(type) && !objectInFront && gameManager.exRedMove > 0)
+                {
+                    transform.position += transform.right * MoveDistance;
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedMove -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenMove -= 1;
+                            break;
+                    }
+                }
 
-        if (Input.GetKeyDown(KeyCode.A) && selectedColor.Equals(type))
-        {
-            transform.Rotate(new Vector3(0, -90, 0));
-        }
+                if (Input.GetKeyDown(KeyCode.S) && gameManager.selectedColor.Equals(type) && !objectInBack && gameManager.exRedMove > 0)
+                {
+                    transform.position += transform.right * -MoveDistance;
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedMove -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenMove -= 1;
+                            break;
+                    }
+                }
 
-        if (Input.GetKeyDown(KeyCode.D) && selectedColor.Equals(type))
-        {
-            transform.Rotate(new Vector3(0, 90, 0));
-        }
+                if (Input.GetKeyDown(KeyCode.A) && gameManager.selectedColor.Equals(type) && gameManager.exRedRotate > 0)
+                {
+                    transform.Rotate(new Vector3(0, -90, 0));
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedRotate -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenRotate -= 1;
+                            break;
+                    }
+                }
 
-        if (Input.GetKeyDown(KeyCode.E) && selectedColor.Equals(type) && golemInFront && frontGolem != null)
-        {
-            print("Pushing");
-            frontGolem.transform.position = pushPosition.transform.position;
+                if (Input.GetKeyDown(KeyCode.D) && gameManager.selectedColor.Equals(type) && gameManager.exRedRotate > 0 )
+                {
+                    transform.Rotate(new Vector3(0, 90, 0));
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedRotate -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenRotate -= 1;
+                            break;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.E) && gameManager.selectedColor.Equals(type) && golemInFront && frontGolem != null && gameManager.exRedPush > 0 )
+                {
+                    frontGolem.transform.position = pushPosition.transform.position;
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedPush -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenPush -= 1;
+                            break;
+                    }
+                }
+                break;
+            case GolemColor.Green:
+                if (Input.GetKeyDown(KeyCode.W) && gameManager.selectedColor.Equals(type) && !objectInFront && gameManager.exGreenMove > 0)
+                {
+                    transform.position += transform.right * MoveDistance;
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedMove -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenMove -= 1;
+                            break;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.S) && gameManager.selectedColor.Equals(type) && !objectInBack && gameManager.exGreenMove > 0)
+                {
+                    transform.position += transform.right * -MoveDistance;
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedMove -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenMove -= 1;
+                            break;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.A) && gameManager.selectedColor.Equals(type) && gameManager.exGreenRotate > 0)
+                {
+                    transform.Rotate(new Vector3(0, -90, 0));
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedRotate -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenRotate -= 1;
+                            break;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.D) && gameManager.selectedColor.Equals(type) && gameManager.exGreenRotate > 0)
+                {
+                    transform.Rotate(new Vector3(0, 90, 0));
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedRotate -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenRotate -= 1;
+                            break;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.E) && gameManager.selectedColor.Equals(type) && golemInFront && frontGolem != null && gameManager.exGreenPush > 0)
+                {
+                    frontGolem.transform.position = pushPosition.transform.position;
+                    switch (type)
+                    {
+                        case GolemColor.Red:
+                            gameManager.exRedPush -= 1;
+                            break;
+                        case GolemColor.Green:
+                            gameManager.exGreenPush -= 1;
+                            break;
+                    }
+                }
+                break;
         }
+        
     }
 
     public void ToggleSelectedGolem()
     {
-       switch (selectedColor)
+       switch (gameManager.selectedColor)
         {
             case GolemColor.Red:
-                selectedColor = GolemColor.Green;
+                gameManager.selectedColor = GolemColor.Green;
                 break;
             case GolemColor.Green:
-                selectedColor = GolemColor.Red;
+                gameManager.selectedColor = GolemColor.Red;
                     break;
         }
     }
