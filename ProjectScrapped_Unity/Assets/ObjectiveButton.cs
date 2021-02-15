@@ -8,6 +8,8 @@ public class ObjectiveButton : MonoBehaviour
     public GameObject dataHole2;
     public GameObject dataHole3;
 
+    public bool pressed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,9 +26,16 @@ public class ObjectiveButton : MonoBehaviour
     {
         if (other.gameObject.tag == "Golem")
         {
+            pressed = true;
+
             dataHole1.GetComponent<CubeDataHole>().type = GolemColor.Green;
             dataHole2.GetComponent<CubeDataHole>().type = GolemColor.Green;
             dataHole3.GetComponent<CubeDataHole>().type = GolemColor.Red;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        pressed = false;
     }
 }

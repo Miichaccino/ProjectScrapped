@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GolemColor selectedColor = new GolemColor { };
     [SerializeField] public int redMove, redRotate, redPush, greenMove, greenRotate, greenPush;
     [HideInInspector] public int exRedMove, exRedRotate, exRedPush, exGreenMove, exGreenRotate, exGreenPush;
+
     private void Start()
     {
         selectedColor = GolemColor.Red;
@@ -18,4 +19,5 @@ public class GameManager : MonoBehaviour
         exGreenRotate = greenRotate;
         exGreenPush = greenPush;
     }
+
 }
