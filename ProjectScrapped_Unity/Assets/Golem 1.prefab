@@ -210,6 +210,8 @@ MonoBehaviour:
   objectInFront: 0
   objectInBack: 0
   golemInFront: 0
+  sawMill: {fileID: 8317741780735818082, guid: 0a5de8500ab358048a4f5af577829f62, type: 3}
+  frontCheck: {fileID: 6057563556586785059}
   frontGolem: {fileID: 0}
   pushPosition: {fileID: 1609506940568824456}
 --- !u!54 &1280707571837247241

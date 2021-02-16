@@ -19,12 +19,10 @@ public class CubeGolem : MonoBehaviour
     [HideInInspector] public bool objectInFront;
     [HideInInspector] public bool objectInBack;
     [HideInInspector] public bool golemInFront;
-    
 
-    
-    //[SerializeField] Text exRedMoveText, exRedRotateText, exRedPushText, exGreenMoveText, exGreenRotateText, exGreenPushText;
-
-    public GameObject frontGolem;
+    [SerializeField] GameObject sawMill;
+    [SerializeField] GameObject frontCheck;
+    public GameObject frontObject;
     
     [SerializeField] GameObject pushPosition;
 
@@ -68,140 +66,73 @@ public class CubeGolem : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.W) && gameManager.selectedColor.Equals(type) && !objectInFront && gameManager.exRedMove > 0)
                 {
                     transform.position += transform.right * MoveDistance;
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedMove -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenMove -= 1;
-                            break;
-                    }
+                    gameManager.exRedMove -= 1;
                 }
-
                 if (Input.GetKeyDown(KeyCode.S) && gameManager.selectedColor.Equals(type) && !objectInBack && gameManager.exRedMove > 0)
                 {
                     transform.position += transform.right * -MoveDistance;
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedMove -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenMove -= 1;
-                            break;
-                    }
+                    gameManager.exRedMove -= 1;
                 }
 
                 if (Input.GetKeyDown(KeyCode.A) && gameManager.selectedColor.Equals(type) && gameManager.exRedRotate > 0)
                 {
                     transform.Rotate(new Vector3(0, -90, 0));
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedRotate -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenRotate -= 1;
-                            break;
-                    }
+                    gameManager.exRedRotate -= 1;
                 }
 
                 if (Input.GetKeyDown(KeyCode.D) && gameManager.selectedColor.Equals(type) && gameManager.exRedRotate > 0 )
                 {
                     transform.Rotate(new Vector3(0, 90, 0));
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedRotate -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenRotate -= 1;
-                            break;
-                    }
+                    gameManager.exRedRotate -= 1;
                 }
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.selectedColor.Equals(type) && golemInFront && frontGolem != null && gameManager.exRedPush > 0 )
+                if (Input.GetKeyDown(KeyCode.E) && gameManager.selectedColor.Equals(type) && golemInFront && frontObject != null && gameManager.exRedPush > 0 )
                 {
-                    frontGolem.transform.position = pushPosition.transform.position;
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedPush -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenPush -= 1;
-                            break;
-                    }
+                    frontObject.transform.position = pushPosition.transform.position;
+                    gameManager.exRedPush -= 1;
+                }
+                if (Input.GetKeyDown(KeyCode.Q) && gameManager.selectedColor.Equals(type) && !objectInFront && gameManager.exRedPlace > 0)
+                {
+                    GameObject saw = sawMill;
+                    Instantiate(saw, frontCheck.transform.position, Quaternion.identity);
+                    gameManager.exRedPlace -= 1;
+
                 }
                 break;
             case GolemColor.Green:
                 if (Input.GetKeyDown(KeyCode.W) && gameManager.selectedColor.Equals(type) && !objectInFront && gameManager.exGreenMove > 0)
                 {
                     transform.position += transform.right * MoveDistance;
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedMove -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenMove -= 1;
-                            break;
-                    }
+                    gameManager.exGreenMove -= 1;
                 }
 
                 if (Input.GetKeyDown(KeyCode.S) && gameManager.selectedColor.Equals(type) && !objectInBack && gameManager.exGreenMove > 0)
                 {
                     transform.position += transform.right * -MoveDistance;
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedMove -= 1;
-                            break;
-                        case GolemColor.Green:
-                            gameManager.exGreenMove -= 1;
-                            break;
-                    }
+                    gameManager.exGreenMove -= 1;
                 }
 
                 if (Input.GetKeyDown(KeyCode.A) && gameManager.selectedColor.Equals(type) && gameManager.exGreenRotate > 0)
                 {
                     transform.Rotate(new Vector3(0, -90, 0));
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedRotate -= 1;
-                            break;
-                        case GolemColor.Green:
                             gameManager.exGreenRotate -= 1;
-                            break;
-                    }
                 }
 
                 if (Input.GetKeyDown(KeyCode.D) && gameManager.selectedColor.Equals(type) && gameManager.exGreenRotate > 0)
                 {
                     transform.Rotate(new Vector3(0, 90, 0));
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedRotate -= 1;
-                            break;
-                        case GolemColor.Green:
                             gameManager.exGreenRotate -= 1;
-                            break;
-                    }
                 }
-                if (Input.GetKeyDown(KeyCode.E) && gameManager.selectedColor.Equals(type) && golemInFront && frontGolem != null && gameManager.exGreenPush > 0)
+                if (Input.GetKeyDown(KeyCode.E) && gameManager.selectedColor.Equals(type) && golemInFront && frontObject != null && gameManager.exGreenPush > 0)
                 {
-                    frontGolem.transform.position = pushPosition.transform.position;
-                    switch (type)
-                    {
-                        case GolemColor.Red:
-                            gameManager.exRedPush -= 1;
-                            break;
-                        case GolemColor.Green:
+                    frontObject.transform.position = pushPosition.transform.position;
                             gameManager.exGreenPush -= 1;
-                            break;
-                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Q) && gameManager.selectedColor.Equals(type) && !objectInFront && gameManager.exGreenPlace > 0)
+                {
+                    GameObject saw = sawMill;
+                    Instantiate(saw, frontCheck.transform.position, Quaternion.identity);
+                    gameManager.exGreenPlace -= 1;
                 }
                 break;
         }
