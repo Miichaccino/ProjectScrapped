@@ -132,6 +132,7 @@ public class CubeGolem : MonoBehaviour
                 {
                     GameObject saw = sawMill;
                     Instantiate(saw, frontCheck.transform.position, Quaternion.identity);
+                    saw.transform.Rotate(0, 90, 0);
                     gameManager.exGreenPlace -= 1;
                 }
                 break;
