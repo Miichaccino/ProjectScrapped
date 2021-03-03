@@ -5,7 +5,7 @@ using UnityEngine;
 public class SawBlock : MonoBehaviour
 {
     [SerializeField] Material[] stateColor;
-    [SerializeField] public SawBlock[] connectedBlocks = new SawBlock[2];
+    [SerializeField] public SawBlock[] connectedBlocks = new SawBlock[4];
 
     MeshRenderer mesh;
     public bool hasSaw;

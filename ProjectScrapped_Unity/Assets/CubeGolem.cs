@@ -20,7 +20,7 @@ public class CubeGolem : MonoBehaviour
     [HideInInspector] public bool objectInBack;
     [HideInInspector] public bool golemInFront;
 
-    [SerializeField] GameObject sawMill;
+    [SerializeField] GameObject sawMill, sawMillCorner;
     [SerializeField] GameObject frontCheck;
     public GameObject frontObject;
     

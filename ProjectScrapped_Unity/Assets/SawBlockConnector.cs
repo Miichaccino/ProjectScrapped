@@ -21,6 +21,14 @@ public class SawBlockConnector : MonoBehaviour
             {
                 sawBlock.connectedBlocks[1] = other.gameObject.GetComponentInParent<SawBlock>();
             }
+            else if (sawBlock.connectedBlocks[2] == null)
+            {
+                sawBlock.connectedBlocks[2] = other.gameObject.GetComponentInParent<SawBlock>();
+            }
+            else if (sawBlock.connectedBlocks[3] == null)
+            {
+                sawBlock.connectedBlocks[3] = other.gameObject.GetComponentInParent<SawBlock>();
+            }
         }
     }
 }
